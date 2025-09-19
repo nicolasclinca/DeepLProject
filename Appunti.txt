@@ -1,0 +1,29 @@
+Per librerie complesse come PyTorch, a volte è preferibile installarle direttamente 
+con conda per una migliore gestione delle dipendenze binarie:
+    # Esempio per PyTorch (visita pytorch.org per il comando corretto per il tuo sistema)
+    conda install pytorch torchvision torchaudio cpuonly -c pytorch # Per CPU
+    # Oppure per GPU, controlla il sito di PyTorch
+
+
+Alternativa avanzata, usare un file environment.yml (specifico per conda)
+
+- Per create l'ambiente da questo file:
+    conda env create -f environment.yml
+
+- Per aggiornare un ambiente esistente (solver=libmamba rende conda molto più veloce):
+    conda env update --name erag_env --file environment.yml --prune --solver=libmamba
+    conda env update -f environment.yml
+
+- Per distattivare l'ambiente
+    conda deactivate
+
+- Per controllare gli ambienti creati
+    conda env list
+
+- Per eliminare un ambiente
+    conda env remove -n NOME
+
+- Per vedere le librerie installate in un ambiente (attivare prima l'ambiente)
+    conda list
+
+
