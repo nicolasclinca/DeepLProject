@@ -6,15 +6,17 @@ channels:
   - defaults 
 dependencies:
   - python=3.12
+  - pip
   - numpy=2.3.2
   - scikit-learn=1.7.2
   - scipy=1.16.1
   - pandas=2.3.2
   - pytorch=2.8.0
-  - pytorch-cuda=12.9          # dipende dalla versione/compatibilità della GPU
+  - pytorch-cuda=12.1          # dipende dalla versione/compatibilità della GPU
   - matplotlib=3.10.1
   - SPARQLWrapper
+  - wikipedia-api
   - tqdm
-  - pip
   - pip:
-    - transformers==4.56.2
+    - transformers=4.56.2
+    - tokenizers=0.20.3
