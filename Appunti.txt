@@ -7,8 +7,8 @@ con conda per una migliore gestione delle dipendenze binarie:
 
 Alternativa avanzata, usare un file environment.yml (specifico per conda)
 
-- Per create l'ambiente da questo file:
-    conda env create -f environment.yml
+- Per creare l'ambiente da questo file:
+    conda env create -f environment.yml --solver=libmamba
 
 - Per aggiornare un ambiente esistente (solver=libmamba rende conda molto più veloce):
     conda env update --name erag_env --file environment.yml --prune --solver=libmamba

@@ -12,11 +12,11 @@ dependencies:
   - scipy=1.16.1
   - pandas=2.3.2
   - pytorch=2.8.0
-  - pytorch-cuda=12.1          # dipende dalla versione/compatibilità della GPU
+  - pytorch-cuda=12.4          # dipende dalla versione/compatibilità della GPU
   - matplotlib=3.10.1
   - SPARQLWrapper
   - wikipedia-api
   - tqdm
   - pip:
-    - transformers=4.56.2
-    - tokenizers=0.20.3
+    - transformers==4.56.2
+    - tokenizers
