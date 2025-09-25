@@ -6,6 +6,7 @@ from tokenizers.models import BPE
 from tokenizers.trainers import BpeTrainer
 from tokenizers.pre_tokenizers import Whitespace
 
+
 def serialize_triple(triple):
     """Converts a triple object to its string representation."""
     s = triple['subject']
@@ -13,11 +14,12 @@ def serialize_triple(triple):
     o = triple['object']
     return f"<SOT> <SUBJ> {s} <PRED> {p} <OBJ> {o} <EOT>"
 
+
 def prepare_corpus():
     """Prepares a text corpus from the collected data for tokenizer training."""
     print("1. Preparing corpus from data/raw_data.jsonl...")
     with open("data/raw_data.jsonl", "r", encoding="utf-8") as f_in, \
-         open("data/corpus.txt", "w", encoding="utf-8") as f_out:
+         open("data/corpus.txt", "w", encoding="utf-8") as f_out:            
         for line in f_in:
             entry = json.loads(line)
             
@@ -28,6 +30,7 @@ def prepare_corpus():
             for triple in entry['triples']:
                 f_out.write(serialize_triple(triple) + "\n")
     print("Corpus saved to data/corpus.txt")
+
 
 def train_tokenizer():
     """Trains a BPE tokenizer from scratch."""
@@ -54,6 +57,8 @@ def train_tokenizer():
     # Salva il tokenizer
     tokenizer.save("tokenizer/nanosocrates_tokenizer.json")
     print("Tokenizer trained and saved to tokenizer/nanosocrates_tokenizer.json")
+
+
 
 if __name__ == "__main__":
     import os

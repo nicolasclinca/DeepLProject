@@ -1,2 +1,3 @@
 # Ignora la cartella delle impostazioni di VS Code
 .vscode/
+.Nicolas/data/

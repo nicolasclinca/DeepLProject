@@ -6,8 +6,6 @@ import time
 
 
 
-
-
 def get_movie_uris(limit=1000):
     """Query DBpedia for a list of movie URIs."""
     sparql = SPARQLWrapper("https://dbpedia.org/sparql")
@@ -17,9 +15,11 @@ def get_movie_uris(limit=1000):
             ?film a dbo:Film .
         }} LIMIT {limit}
     """)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
+    sparql.setReturnFormat(JSON)     # di default, dovrebbe ritornare un XML, noi lo settiamo a JSON
+    results = sparql.query().convert() # convertiamo il json in un dizionario
     return [result["film"]["value"] for result in results["results"]["bindings"]]
+
+
 
 def get_triples_for_movie(movie_uri):
     """Get all one-hop triples for a given movie URI."""
@@ -44,6 +44,7 @@ def get_triples_for_movie(movie_uri):
     triples = []
     try:
         results = sparql.query().convert()
+        # cicliamo per ogni predicato (un predicato -> un oggetto)
         for result in results["results"]["bindings"]:
             triples.append({
                 "subject": movie_uri.split('/')[-1],
@@ -54,33 +55,37 @@ def get_triples_for_movie(movie_uri):
         print(f"Error querying triples for {movie_uri}: {e}")
     return triples
 
+
+
 def get_wikipedia_abstract(movie_title):
     """Get the first paragraph of the Wikipedia page for a movie."""
-    wiki_wiki = wikipediaapi.Wikipedia('NanoSocratesProject/1.0', 'en')
-    page = wiki_wiki.page(movie_title)
+    wiki_abstract = wikipediaapi.Wikipedia('NanoSocrates', 'en')
+    page = wiki_abstract.page(movie_title)
     if not page.exists():
         return None
     # Prende solo il primo paragrafo, come suggerito
     return page.summary.split('\n')[0]
 
+
+
 def main():
     print("1. Fetching movie URIs from DBpedia...")
     # Per un test rapido, usa un limite basso, es. 50
-    movie_uris = get_movie_uris(limit=200) 
+    movie_uris = get_movie_uris(limit=5) 
     
     wiki_data = []
     
     print(f"2. Fetching details for {len(movie_uris)} movies...")
     for uri in tqdm(movie_uris):
-        movie_title = uri.split('/')[-1].replace('_', ' ')
+        movie_title = uri.split('/')[-1].replace('_', ' ')        # prendiamo il titolo direttamente dall'uri
         
         # Get Wikipedia abstract
-        abstract = get_wikipedia_abstract(movie_title)
+        abstract = get_wikipedia_abstract(movie_title)            # estrae l'abstract dato il titolo
         if not abstract:
             continue
             
         # Get RDF triples
-        triples = get_triples_for_movie(uri)
+        triples = get_triples_for_movie(uri)       # crea le triple per ogni film
         if not triples:
             continue
             
@@ -99,6 +104,8 @@ def main():
             f.write(json.dumps(entry) + "\n")
             
     print("Done!")
+
+
 
 if __name__ == "__main__":
     # Assicurati di aver creato una cartella 'data'

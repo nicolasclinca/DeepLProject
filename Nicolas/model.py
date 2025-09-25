@@ -48,7 +48,7 @@ class MultiHeadAttention(nn.Module):
         self.W_q = nn.Linear(d_model, d_model)
         self.W_k = nn.Linear(d_model, d_model)
         self.W_v = nn.Linear(d_model, d_model)
-        self.W_o = nn.Linear(d_model, d_model)
+        self.W_o = nn.Linear(d_model, d_model)        # Wo prende l'output concatenato di tutte le teste e lo proietta di nuovo nella dimensione d_model originale
         
         self.dropout = nn.Dropout(dropout)
 

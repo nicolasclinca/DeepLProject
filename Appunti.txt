@@ -27,3 +27,25 @@ Alternativa avanzata, usare un file environment.yml (specifico per conda)
     conda list
 
 
+### PROGETTO ###
+
+- Ordine dei file
+    1. data_extraction
+    2. tokenizer_training
+    3. datasets
+    4. model
+    5. train
+    6. evaluate
+    
+
+
+
+
+
+    SELECT ?film ?filmName
+WHERE {
+  ?film a dbo:Film ;
+        rdfs:label "The Matrix"@en .
+  ?film rdfs:label ?filmName .
+  FILTER (lang(?filmName) = "en")
+}
